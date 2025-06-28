@@ -1,0 +1,67 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: tenants
+  namespace: openshift-gitops
+  annotations:
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
+    argocd.argoproj.io/sync-options: Prune=false
+spec:
+  generators:
+    - matrix:
+        generators:
+          - git:
+              repoURL: 'https://github.com/mcaballol/config-gitops.git'  # Update me on fork
+              revision: main
+              directories:
+              - path: tenants/*/*/overlays/patch-me-see-overlay
+              - path: tenants/*/*/overlays/common
+          - list:
+              elements:
+                - name: cluster-a
+                  server: https://kubernetes.default.svc
+
+
+  template:
+    metadata:
+      name: '{{path[1]}}-{{path[2]}}-configs'
+      annotations:
+        argocd.argoproj.io/compare-options: IgnoreExtraneous
+        argocd.argoproj.io/sync-options: Prune=false
+      labels:
+        tenant: '{{path[1]}}'
+    spec:
+      project: tenants-configs
+      syncPolicy:
+        automated:
+          prune: false
+          selfHeal: true
+        retry:
+          limit: 5
+          backoff:
+            duration: 30s
+            factor: 2
+            maxDuration: 20m
+      source:
+        repoURL: 'https://github.com/mcaballol/platforms-gitops.git'
+        targetRevision: main
+        path: '{{path}}'
+      destination:
+        server: '{{server}}'
+      ignoreDifferences:
+        - kind: Notebook
+          group: kubeflow.org
+          jqPathExpressions:
+            - .spec.template.spec.containers[] | select(.name == "oauth-proxy")
+            - .spec.template.spec.volumes[] | select(.name == "oauth-config")
+            - .spec.template.spec.volumes[] | select(.name == "tls-certificates")
+            - .spec.template.spec.containers[].env[] | select(.name == "PIP_CERT")
+            - .spec.template.spec.containers[].env[] | select(.name == "REQUESTS_CA_BUNDLE")
+            - .spec.template.spec.containers[].env[] | select(.name == "SSL_CERT_FILE")
+            - .spec.template.spec.containers[].env[] | select(.name == "PIPELINES_SSL_SA_CERTS")
+            - .spec.template.spec.containers[].env[] | select(.name == "GIT_SSL_CAINFO")
+            - .spec.template.spec.containers[].volumeMounts[] | select(.name == "runtime-images")
+            - .spec.template.spec.containers[].volumeMounts[] | select(.name == "trusted-ca")
+            - .spec.template.spec.volumes[] | select(.name == "runtime-images")
+            - .spec.template.spec.volumes[] | select(.name == "trusted-ca")
+            - .spec.template.spec.volumes[] | select(.name == "oauth-client")
