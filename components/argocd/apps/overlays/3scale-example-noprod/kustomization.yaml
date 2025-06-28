@@ -8,4 +8,4 @@ patches:
   - path: patch-tenants-applicationset.yaml
     target:
       kind: ApplicationSet
-      name: tenants
+      name: tenants-configs
