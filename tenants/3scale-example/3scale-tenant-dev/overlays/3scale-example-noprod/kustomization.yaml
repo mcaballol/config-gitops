@@ -4,6 +4,10 @@ namespace: 3scale-tenant-dev
 
 resources:
   - ../../base
+  #backends
   - backends/svc-countries.yaml
+  #products
+  - products/countries-openid-secret.yaml
+  - products/countries-openid.yaml
 commonAnnotations:
     argocd.argoproj.io/sync-wave: "6"

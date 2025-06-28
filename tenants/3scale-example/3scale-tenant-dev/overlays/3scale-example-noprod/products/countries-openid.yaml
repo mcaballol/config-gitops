@@ -1,0 +1,58 @@
+kind: Product
+apiVersion: capabilities.3scale.net/v1beta1
+metadata:
+  name: countries-openid
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  name: "OpenID api"
+  systemName: api_openid_product
+  description: "product demo"
+  providerAccountRef:
+    name: dev-tenant-secret
+
+  deployment:
+    apicastSelfManaged:
+      stagingPublicBaseURL: "https://api-dev-staging.apps.cluster-5pfhb.dynamic.redhatworkshops.io"
+      productionPublicBaseURL: "https://api-dev.apps.cluster-5pfhb.dynamic.redhatworkshops.io"
+      authentication:
+        oidc:
+          authenticationFlow:
+            standardFlowEnabled: true
+            implicitFlowEnabled: false
+            serviceAccountsEnabled: true            
+            directAccessGrantsEnabled: false
+          credentials: headers
+          issuerType: keycloak
+          issuerEndpointRef:
+            name: countries-openid-secret
+          jwtClaimWithClientID: azp
+          jwtClaimWithClientIDType: plain
+
+  backendUsages:
+    bs_hello_java_backend:
+      path: "/"
+
+  methods:
+    get_countries_v1:
+      friendlyName: "GET countries V1"
+      description: ""
+ 
+  mappingRules:
+  - httpMethod: GET
+    pattern: "/countries"
+    metricMethodRef: get_countries_v1
+    increment: 1
+    last: true
+
+
+  applicationPlans:
+    basic:
+      name: Basic
+      appsRequireApproval: false
+      trialPeriod: 0
+      setupFee: "0.00"
+      costMonth: "0.00"
+      #custom: false
+      #state: published
