@@ -31,8 +31,8 @@ spec:
           jwtClaimWithClientIDType: plain
 
   backendUsages:
-    bs_hello_java_backend:
-      path: "/"
+    svc_countries_backend:
+      path: "/countries"
 
   methods:
     get_countries_v1:
