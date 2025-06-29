@@ -9,7 +9,7 @@ spec:
       restartPolicy: Never
       containers:
       - name: kcadm
-        image: registry.redhat.io/rhbk/keycloak-rhel9
+        image: registry.redhat.io/rhbk/keycloak-rhel9:26.2-4
         env:
         - name: KEYCLOAK_URL
           value: http://keycloak:8080  # Ajusta según tu service
