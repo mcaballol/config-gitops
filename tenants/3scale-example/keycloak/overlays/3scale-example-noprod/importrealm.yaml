@@ -21,8 +21,8 @@ spec:
     #   client:
     #     realm-management:
     #       - name: manage-users
-    serviceAccountRealmRoles:
-      - clientId: 3scale-client
-        roles:
-          - name: manage-users
-            clientId: realm-management
+    # serviceAccountRealmRoles:
+    #   - clientId: 3scale-client
+    #     roles:
+    #       - name: manage-users
+    #         clientId: realm-management
