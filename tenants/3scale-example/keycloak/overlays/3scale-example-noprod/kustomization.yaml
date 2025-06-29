@@ -4,6 +4,7 @@ namespace: keycloak
 
 resources:
   - ../../base
-  - secret-realm.yaml
-patchesStrategicMerge:
-  - patch-job-create-realm.yaml
+  - importrealm.yaml
+#   - secret-realm.yaml
+# patchesStrategicMerge:
+#   - patch-job-create-realm.yaml
