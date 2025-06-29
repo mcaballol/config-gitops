@@ -1,0 +1,54 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: create-keycloak-realm
+spec:
+  backoffLimit: 1
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: kcadm
+        image: registry.redhat.io/rhbk/keycloak-rhel9
+        env:
+        - name: KEYCLOAK_URL
+          value: http://keycloak:8080  # Ajusta según tu service
+        envFrom:
+        - secretRef:
+            name: keycloak-initial-admin
+        volumeMounts:
+        - name: realm-json
+          mountPath: /realm
+          readOnly: true
+        command:
+        - /bin/bash
+        - -c
+        - |
+          echo "[INFO] Esperando hasta 10 minutos que Keycloak esté disponible..."
+          TIMEOUT=600
+          INTERVAL=20
+          ELAPSED=0
+
+          until curl -sf "${KEYCLOAK_URL}/realms/master"; do
+            if [ $ELAPSED -ge $TIMEOUT ]; then
+              echo "[ERROR] Timeout esperando Keycloak"
+              exit 1
+            fi
+            echo "[INFO] Keycloak aún no responde, esperando..."
+            sleep $INTERVAL
+            ELAPSED=$((ELAPSED + INTERVAL))
+          done
+
+          echo "[INFO] Logueando a Keycloak..."
+          /opt/keycloak/bin/kcadm.sh config credentials \
+            --server "$KEYCLOAK_URL" \
+            --realm master \
+            --user "$username" \
+            --password "$password"
+
+          echo "[INFO] Creando realm desde JSON..."
+          /opt/keycloak/bin/kcadm.sh create realms -f /realm/realm.json
+      volumes:
+      - name: realm-json
+        secret:
+          secretName: realm-definition

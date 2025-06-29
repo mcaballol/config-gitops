@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: create-keycloak-realm
+spec:
+  backoffLimit: 3
+  template:
+    spec:
+      containers:
+      - name: kcadm
+        env:
+        - name: KEYCLOAK_URL
+          value: http://keycloak-service:8080  # Ajusta según tu service
+        envFrom:
+        - secretRef:
+            name: keycloak-initial-admin
+      volumes:
+      - name: realm-json
+        secret:
+          secretName: realm-definition
