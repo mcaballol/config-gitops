@@ -1,0 +1,10 @@
+kind: ApplicationAuth
+apiVersion: capabilities.3scale.net/v1beta1
+metadata:
+  name: applicationauth-sample
+spec:
+  applicationCRName: application-sample-openid-dev
+  authSecretRef:
+    name: authsecret
+  generateSecret: false
+status: {}

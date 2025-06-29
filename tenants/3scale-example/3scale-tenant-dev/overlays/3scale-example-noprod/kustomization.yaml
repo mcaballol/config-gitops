@@ -9,5 +9,15 @@ resources:
   #products
   - products/countries-openid-secret.yaml
   - products/countries-openid.yaml
+  #accounts
+  - accounts/developeraccount-devsecops.yaml
+
+  #account-users
+  - accounts/developeruser-admin.yaml
+  - accounts/developeruser-admin-secret.yaml
+
+  - applications/application-sample-openid.yaml
+  - applications/applicationauth.yaml
+  - applications/secret.yaml
 commonAnnotations:
     argocd.argoproj.io/sync-wave: "6"
