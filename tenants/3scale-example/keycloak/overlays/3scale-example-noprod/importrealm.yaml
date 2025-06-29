@@ -17,6 +17,25 @@ spec:
         standardFlowEnabled: true
         directAccessGrantsEnabled: true
         serviceAccountsEnabled: true
+    users:
+    - username: service-account-3scale-client
+      emailVerified: false
+      enabled: true
+      totp: false
+      serviceAccountClientId: 3scale-client
+      disableableCredentialTypes: []
+      requiredActions: []
+      realmRoles:
+      - default-roles-3scale-realm
+      clientRoles:
+        realm-management:
+        - view-users
+        - manage-clients
+        - create-client
+      notBefore: 0
+      groups: []
+    
+  
     # roles:
     #   client:
     #     realm-management:
