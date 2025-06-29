@@ -19,9 +19,8 @@ spec:
         serviceAccountsEnabled: true
     roles:
       client:
-        - clientId: realm-management
-          roles:
-            - name: manage-users
+        realm-management:
+          - name: manage-users
     serviceAccountRealmRoles:
       - clientId: 3scale-client
         roles:
