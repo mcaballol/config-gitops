@@ -17,10 +17,10 @@ spec:
         standardFlowEnabled: true
         directAccessGrantsEnabled: true
         serviceAccountsEnabled: true
-    roles:
-      client:
-        realm-management:
-          - name: manage-users
+    # roles:
+    #   client:
+    #     realm-management:
+    #       - name: manage-users
     serviceAccountRealmRoles:
       - clientId: 3scale-client
         roles:
