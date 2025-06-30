@@ -30,4 +30,4 @@ spec:
         - name: apps-volume
           secret:
             secretName: reconcile-apps
-  backoffLimit: 1
+  backoffLimit: 2
