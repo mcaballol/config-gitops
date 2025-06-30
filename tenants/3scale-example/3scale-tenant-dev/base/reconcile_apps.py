@@ -104,9 +104,10 @@ def create_application(app, accounts):
         "user_key": user_key,
         "application_key": app["application_key"],
         "redirect_url": app.get("redirect_url", ""),
+        "access_token": ACCESS_TOKEN
     }
 
-    url = f"{ADMIN_URL}/admin/api/accounts/{account_id}/applications.json?access_token={ACCESS_TOKEN}"
+    url = f"{ADMIN_URL}/admin/api/accounts/{account_id}/applications.json"
 
     response = requests.post(url, headers=HEADERS, json={"application": payload}, verify=False)
 
