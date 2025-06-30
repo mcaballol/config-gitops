@@ -8,12 +8,14 @@ stringData:
   app1.yaml: |
     app_name: "planview"
     account: "testorg"
+    service_system_name: "api_openid_product"
     plan_name: "Basic"
     application_id: "app-001"
     application_key: "user-key-001"
   app2.yaml: |
     app_name: "mobile"
     account: "qa-account"
+    service_system_name: "api_openid_product3"
     plan_name: "102"
     application_id: "app-002"
     application_key: "user-key-002"
