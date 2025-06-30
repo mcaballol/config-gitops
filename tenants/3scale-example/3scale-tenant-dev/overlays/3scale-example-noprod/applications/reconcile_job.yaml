@@ -2,8 +2,8 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: reconcile-3scale-apps
-  namespace: tu-namespace
-spec:
+  annotations:
+    argocd.argoproj.io/sync-options: Deletespec:
   template:
     spec:
       containers:
