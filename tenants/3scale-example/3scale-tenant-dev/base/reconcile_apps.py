@@ -108,7 +108,7 @@ def create_application(app, accounts):
         "access_token": ACCESS_TOKEN
     }
 
-    url = f"{ADMIN_URL}/admin/api/accounts/{account_id}/applications.json"
+    url = f"{ADMIN_URL}/admin/api/accounts/{account_id}/applications.xml"
 
 
     print("\n➡️ Payload que se va a enviar:")
