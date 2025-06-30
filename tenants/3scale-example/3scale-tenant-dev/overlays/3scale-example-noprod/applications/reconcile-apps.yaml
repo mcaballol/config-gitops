@@ -9,7 +9,7 @@ stringData:
     app_name: "planview"
     account: "testorg"
     service_system_name: "api_openid_product"
-    plan_name: "Basic"
+    application_plan_name: "Basic"
     application_id: "app-001"
     application_key: "user-key-001"
   app2.yaml: |

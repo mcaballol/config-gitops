@@ -90,7 +90,7 @@ def create_application(app, accounts):
         return
     if "plan_id" not in app:
         service_id = get_service_id_by_system_name(app["service_system_name"])
-        plan_id = get_plan_id_by_name(service_id, app["plan_name"])
+        plan_id = get_plan_id_by_name(service_id, app["application_plan_name"])
     else:
         plan_id = app["plan_id"]
 
