@@ -18,6 +18,9 @@ spec:
             - name: apps-volume
               mountPath: /apps
               readOnly: true
+          envFrom:
+            - secretRef:
+                name: dev-tenant-secret
       restartPolicy: Never
       volumes:
         - name: config-volume

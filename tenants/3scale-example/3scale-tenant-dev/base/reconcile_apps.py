@@ -20,12 +20,8 @@ except ImportError:
     import requests
 
 
-# Cargar configuración desde ConfigMap (montado como archivo)
-with open('/config/config.yaml') as f:
-    config = yaml.safe_load(f)
-
-ACCESS_TOKEN = config['threescale_access_token']
-ADMIN_URL = config['threescale_admin_url']
+ACCESS_TOKEN = os.getenv("token")
+ADMIN_URL = os.getenv("adminURL")
 APPS_DIR = config.get('apps_repo_dest', '/apps')
 HEADERS = {'Authorization': f'Bearer {ACCESS_TOKEN}'}
 
