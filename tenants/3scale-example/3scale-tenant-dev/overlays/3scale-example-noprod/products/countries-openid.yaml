@@ -55,4 +55,4 @@ spec:
       setupFee: "0.00"
       costMonth: "0.00"
       #custom: false
-      state: published
+      Published: true
