@@ -109,6 +109,11 @@ def create_application(app, accounts):
 
     url = f"{ADMIN_URL}/admin/api/accounts/{account_id}/applications.json"
 
+
+    print("\n➡️ Payload que se va a enviar:")
+    print(json.dumps(payload, indent=2))
+    print(f"➡️ URL: {url}")
+    print(f"➡️ Headers: {HEADERS}")
     response = requests.post(url, headers=HEADERS, json={"application": payload}, verify=False)
 
     if response.status_code == 201:
