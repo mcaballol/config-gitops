@@ -22,7 +22,7 @@ except ImportError:
 
 ACCESS_TOKEN = os.getenv("token")
 ADMIN_URL = os.getenv("adminURL")
-APPS_DIR = config.get('apps_repo_dest', '/apps')
+APPS_DIR = '/apps'
 HEADERS = {'Authorization': f'Bearer {ACCESS_TOKEN}'}
 
 def load_applications():
