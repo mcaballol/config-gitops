@@ -105,8 +105,11 @@ def create_application(app, accounts):
         "user_key": user_key,
         "application_key": app["application_key"],
         "redirect_url": app.get("redirect_url", ""),
-        "access_token": ACCESS_TOKEN
+        "access_token": ACCESS_TOKEN,
+        "first_traffic_at": "",
+        "first_daily_traffic_at": "",
     }
+    
     headers = {
         "accept": "*/*",
         "Content-Type": "application/x-www-form-urlencoded"
@@ -118,7 +121,7 @@ def create_application(app, accounts):
     print(json.dumps(payload, indent=2))
     print(f"➡️ URL: {url}")
     print(f"➡️ Headers: {HEADERS}")
-    response = requests.post(url, headers=headers, data={"application": payload}, verify=False)
+    response = requests.post(url, headers=headers, data=payload, verify=False)
 
     if response.status_code == 201:
         print(f"✅ Aplicación creada: {app['app_name']}")
