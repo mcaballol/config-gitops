@@ -65,17 +65,21 @@ def create_application(app, accounts):
         print(f"No se encontró cuenta para la app {app['app_name']}")
         return
 
-    url = f"{ADMIN_URL}/admin/api/accounts/{account_id}/applications.json"
-    data = {
+    user_key = app.get("app_user_key", app["application_id"])
+
+    payload = {
         "name": app["app_name"],
         "description": app.get("description", ""),
         "plan_id": app["plan_id"],
         "application_id": app["application_id"],
-        "user_key": app.get("user_key", app["application_id"]),
+        "user_key": user_key,
         "application_key": app["application_key"],
         "redirect_url": app.get("redirect_url", ""),
     }
-    response = requests.post(url, headers=HEADERS, json={"application": data}, verify=False)
+
+    url = f"{ADMIN_URL}/admin/api/accounts/{account_id}/applications.json?access_token={ACCESS_TOKEN}"
+
+    response = requests.post(url, headers=HEADERS, json={"application": payload}, verify=False)
 
     if response.status_code == 201:
         print(f"✅ Aplicación creada: {app['app_name']}")
