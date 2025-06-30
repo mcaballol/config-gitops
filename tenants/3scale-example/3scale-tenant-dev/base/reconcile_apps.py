@@ -71,7 +71,8 @@ def create_application(app, accounts):
         "description": app.get("description", ""),
         "plan_id": app["plan_id"],
         "application_id": app["app_id"],
-        "user_key": app["app_user_key"],
+        "user_key": app["app_id"],
+        "application_key": app["application_key"],
         "redirect_url": app.get("redirect_url", ""),
     }
     response = requests.post(url, headers=HEADERS, json={"application": data}, verify=False)
