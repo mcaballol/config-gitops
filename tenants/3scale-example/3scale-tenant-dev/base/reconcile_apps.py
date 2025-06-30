@@ -117,10 +117,10 @@ def create_application(app, accounts):
     url = f"{ADMIN_URL}/admin/api/accounts/{account_id}/applications.xml"
 
 
-    print("\n➡️ Payload que se va a enviar:")
-    print(json.dumps(payload, indent=2))
+    #print("\n➡️ Payload que se va a enviar:")
+    #print(json.dumps(payload, indent=2))
     print(f"➡️ URL: {url}")
-    print(f"➡️ Headers: {HEADERS}")
+    #print(f"➡️ Headers: {HEADERS}")
     response = requests.post(url, headers=headers, data=payload, verify=False)
 
     if response.status_code == 201:
