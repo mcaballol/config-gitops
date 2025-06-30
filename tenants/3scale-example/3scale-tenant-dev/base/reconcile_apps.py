@@ -109,7 +109,7 @@ def create_application(app, accounts):
         "first_traffic_at": "",
         "first_daily_traffic_at": "",
     }
-    
+
     headers = {
         "accept": "*/*",
         "Content-Type": "application/x-www-form-urlencoded"
@@ -130,9 +130,51 @@ def create_application(app, accounts):
     else:
         print(f"❌ Error al crear app {app['app_name']}: {response.status_code} - {response.text}")
 
+import time
+
+def get_services():
+    url = f"{ADMIN_URL}/admin/api/services.json?access_token={ACCESS_TOKEN}&per_page=500"
+    response = requests.get(url, headers={"accept": "*/*"}, verify=False)
+    response.raise_for_status()
+    return [item["service"] for item in response.json().get("services", [])]
+
+def wait_for_accounts_and_services(applications):
+    expected_accounts = {app["account"] for app in applications}
+    expected_services = {app["service_system_name"] for app in applications if "service_system_name" in app}
+
+    max_attempts = 120
+    for attempt in range(1, max_attempts + 1):
+        print(f"🔎 Validando recursos necesarios (intento {attempt}/{max_attempts})...")
+        try:
+            accounts = get_accounts()
+            services = get_services()
+
+            existing_accounts = {a["org_name"] for a in accounts}
+            existing_services = {s["system_name"] for s in services}
+
+            missing_accounts = expected_accounts - existing_accounts
+            missing_services = expected_services - existing_services
+
+            if not missing_accounts and not missing_services:
+                print("✅ Todos los accounts y servicios requeridos están disponibles.")
+                return accounts
+
+            if missing_accounts:
+                print(f"⏳ Faltan accounts: {', '.join(missing_accounts)}")
+            if missing_services:
+                print(f"⏳ Faltan servicios: {', '.join(missing_services)}")
+
+        except Exception as e:
+            print(f"⚠️ Error durante la validación: {e}")
+
+        time.sleep(10)
+
+    print("⛔ No se encontraron todos los recursos requeridos después de 20 minutos.")
+    sys.exit(1)
+
 def main():
     applications = load_applications()
-    accounts = get_accounts()
+    accounts = wait_for_accounts_and_services(applications)
 
     for app in applications:
         if application_exists(app.get("user_key", app["application_id"])):
