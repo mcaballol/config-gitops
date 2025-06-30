@@ -3,7 +3,8 @@ kind: Job
 metadata:
   name: reconcile-3scale-apps
   annotations:
-    argocd.argoproj.io/sync-options: Deletespec:
+    argocd.argoproj.io/sync-options: Delete
+spec:
   template:
     spec:
       containers:
