@@ -1,7 +1,24 @@
 import os
-import yaml
-import requests
 from glob import glob
+import subprocess
+import sys
+
+# Instalar dependencias si no están presentes
+def install(package):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
+try:
+    import yaml
+except ImportError:
+    install("pyyaml")
+    import yaml
+
+try:
+    import requests
+except ImportError:
+    install("requests")
+    import requests
+
 
 # Cargar configuración desde ConfigMap (montado como archivo)
 with open('/config/config.yaml') as f:
