@@ -70,8 +70,8 @@ def create_application(app, accounts):
         "name": app["app_name"],
         "description": app.get("description", ""),
         "plan_id": app["plan_id"],
-        "application_id": app["app_id"],
-        "user_key": app["app_id"],
+        "application_id": app["application_id"],
+        "user_key": app.get("user_key", app["application_id"]),
         "application_key": app["application_key"],
         "redirect_url": app.get("redirect_url", ""),
     }
@@ -89,7 +89,7 @@ def main():
     accounts = get_accounts()
 
     for app in applications:
-        if application_exists(app['app_user_key']):
+        if application_exists(app.get("user_key", app["application_id"])):
             print(f"EXISTE: {app['app_name']}")
         else:
             create_application(app, accounts)
