@@ -9,7 +9,7 @@ spec:
       containers:
         - name: reconcile
           image: registry.redhat.io/ubi8/python-312:latest  # Reemplázalo por tu imagen
-          command: ["python", "/app/reconcile_apps.py"]
+          command: ["python", "/config/reconcile_apps.py"]
           volumeMounts:
             - name: config-volume
               mountPath: /config
