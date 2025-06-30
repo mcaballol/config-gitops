@@ -115,7 +115,7 @@ def create_application(app, accounts):
     print(json.dumps(payload, indent=2))
     print(f"➡️ URL: {url}")
     print(f"➡️ Headers: {HEADERS}")
-    response = requests.post(url, headers=HEADERS, json={"application": payload}, verify=False)
+    response = requests.post(url, headers={"accept": "*/*"}, json={"application": payload}, verify=False)
 
     if response.status_code == 201:
         print(f"✅ Aplicación creada: {app['app_name']}")
