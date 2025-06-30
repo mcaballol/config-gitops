@@ -71,17 +71,17 @@ def get_service_id_by_system_name(system_name):
 
     raise ValueError(f"❌ No se encontró servicio con system_name '{system_name}'")
 
-def get_plan_id_by_system_name(service_id, plan_system_name):
+def get_plan_id_by_name(service_id, plan_name):
     url = f"{ADMIN_URL}/admin/api/services/{service_id}/application_plans.json?access_token={ACCESS_TOKEN}"
     response = requests.get(url, headers={"accept": "*/*"}, verify=False)
     response.raise_for_status()
 
     for item in response.json().get("plans", []):
         plan = item["application_plan"]
-        if plan["system_name"] == plan_system_name:
+        if plan["name"] == plan_name:
             return plan["id"]
 
-    raise ValueError(f"❌ No se encontró plan '{plan_system_name}' para servicio {service_id}")
+    raise ValueError(f"❌ No se encontró plan '{plan_name}' para servicio {service_id}")
 
 def create_application(app, accounts):
     account_id = next((a['id'] for a in accounts if a['org_name'] == app['account']), None)
@@ -90,7 +90,7 @@ def create_application(app, accounts):
         return
     if "plan_id" not in app:
         service_id = get_service_id_by_system_name(app["service_system_name"])
-        plan_id = get_plan_id_by_system_name(service_id, app["plan_system_name"])
+        plan_id = get_plan_id_by_name(service_id, app["plan_name"])
     else:
         plan_id = app["plan_id"]
 
