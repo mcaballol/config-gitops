@@ -7,7 +7,7 @@ type: Opaque
 stringData:
   app1.yaml: |
     app_name: "planview"
-    account: "dev-account"
+    account: "testorg"
     plan_id: "101"
     app_id: "app-001"
     app_user_key: "user-key-001"
