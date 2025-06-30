@@ -2,6 +2,7 @@ import os
 from glob import glob
 import subprocess
 import sys
+import json
 
 # Instalar dependencias si no están presentes
 def install(package):
