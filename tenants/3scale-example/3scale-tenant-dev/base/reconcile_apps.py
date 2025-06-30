@@ -59,18 +59,47 @@ def application_exists(app_user_key):
     response = requests.get(url, auth=(ACCESS_TOKEN, ''), verify=False)
     return response.status_code == 200
 
+def get_service_id_by_system_name(system_name):
+    url = f"{ADMIN_URL}/admin/api/services.json?access_token={ACCESS_TOKEN}&per_page=500"
+    response = requests.get(url, headers={"accept": "*/*"}, verify=False)
+    response.raise_for_status()
+
+    for item in response.json().get("services", []):
+        service = item["service"]
+        if service["system_name"] == system_name:
+            return service["id"]
+
+    raise ValueError(f"❌ No se encontró servicio con system_name '{system_name}'")
+
+def get_plan_id_by_system_name(service_id, plan_system_name):
+    url = f"{ADMIN_URL}/admin/api/services/{service_id}/application_plans.json?access_token={ACCESS_TOKEN}"
+    response = requests.get(url, headers={"accept": "*/*"}, verify=False)
+    response.raise_for_status()
+
+    for item in response.json().get("plans", []):
+        plan = item["application_plan"]
+        if plan["system_name"] == plan_system_name:
+            return plan["id"]
+
+    raise ValueError(f"❌ No se encontró plan '{plan_system_name}' para servicio {service_id}")
+
 def create_application(app, accounts):
     account_id = next((a['id'] for a in accounts if a['org_name'] == app['account']), None)
     if not account_id:
         print(f"No se encontró cuenta para la app {app['app_name']}")
         return
+    if "plan_id" not in app:
+        service_id = get_service_id_by_system_name(app["service_system_name"])
+        plan_id = get_plan_id_by_system_name(service_id, app["plan_system_name"])
+    else:
+        plan_id = app["plan_id"]
 
     user_key = app.get("app_user_key", app["application_id"])
 
     payload = {
         "name": app["app_name"],
         "description": app.get("description", ""),
-        "plan_id": app["plan_id"],
+        "plan_id": plan_id,
         "application_id": app["application_id"],
         "user_key": user_key,
         "application_key": app["application_key"],
