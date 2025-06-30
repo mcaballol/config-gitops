@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: reconcile-apps
+  namespace: tu-namespace
+type: Opaque
+stringData:
+  app1.yaml: |
+    app_name: "planview"
+    account: "dev-account"
+    plan_id: "101"
+    app_id: "app-001"
+    app_user_key: "user-key-001"
+  app2.yaml: |
+    app_name: "mobile"
+    account: "qa-account"
+    plan_id: "102"
+    app_id: "app-002"
+    app_user_key: "user-key-002"

@@ -16,8 +16,11 @@ resources:
   - accounts/developeruser-admin.yaml
   - accounts/developeruser-admin-secret.yaml
 
-  - applications/application-sample-openid.yaml
-  - applications/applicationauth.yaml
-  - applications/secret.yaml
+  # - applications/application-sample-openid.yaml
+  # - applications/applicationauth.yaml
+  # - applications/secret.yaml
+  - applications/reconcile_job.yaml
+  - applications/reconcile-apps.yaml
+
 commonAnnotations:
     argocd.argoproj.io/sync-wave: "6"

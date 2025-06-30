@@ -1,0 +1,69 @@
+import os
+import yaml
+import requests
+from glob import glob
+
+# Cargar configuración desde ConfigMap (montado como archivo)
+with open('/config/config.yaml') as f:
+    config = yaml.safe_load(f)
+
+ACCESS_TOKEN = config['threescale_access_token']
+ADMIN_URL = config['threescale_admin_url']
+APPS_DIR = config.get('apps_repo_dest', '/apps')
+HEADERS = {'Authorization': f'Bearer {ACCESS_TOKEN}'}
+
+def load_applications():
+    applications = []
+    for file in glob(f"{APPS_DIR}/*.yaml"):
+        with open(file) as f:
+            app_data = yaml.safe_load(f)
+            applications.append(app_data)
+    return applications
+
+def get_accounts():
+    url = f"{ADMIN_URL}/admin/api/accounts.json"
+    response = requests.get(url, headers=HEADERS, verify=False)
+    response.raise_for_status()
+    return response.json()
+
+def application_exists(app_user_key):
+    url = f"{ADMIN_URL}/admin/api/applications/find.xml?user_key={app_user_key}"
+    response = requests.get(url, auth=(ACCESS_TOKEN, ''), verify=False)
+    return response.status_code == 200
+
+def create_application(app, accounts):
+    account_id = next((a['account']['id'] for a in accounts if a['account']['org_name'] == app['account']), None)
+    if not account_id:
+        print(f"No se encontró cuenta para la app {app['app_name']}")
+        return
+
+    url = f"{ADMIN_URL}/admin/api/accounts/{account_id}/applications.json"
+    data = {
+        "name": app["app_name"],
+        "description": app.get("description", ""),
+        "plan_id": app["plan_id"],
+        "application_id": app["app_id"],
+        "user_key": app["app_user_key"],
+        "redirect_url": app.get("redirect_url", ""),
+    }
+    response = requests.post(url, headers=HEADERS, json={"application": data}, verify=False)
+
+    if response.status_code == 201:
+        print(f"✅ Aplicación creada: {app['app_name']}")
+    elif response.status_code == 409:
+        print(f"ℹ️ Aplicación ya existe: {app['app_name']}")
+    else:
+        print(f"❌ Error al crear app {app['app_name']}: {response.status_code} - {response.text}")
+
+def main():
+    applications = load_applications()
+    accounts = get_accounts()
+
+    for app in applications:
+        if application_exists(app['app_user_key']):
+            print(f"EXISTE: {app['app_name']}")
+        else:
+            create_application(app, accounts)
+
+if __name__ == '__main__':
+    main()

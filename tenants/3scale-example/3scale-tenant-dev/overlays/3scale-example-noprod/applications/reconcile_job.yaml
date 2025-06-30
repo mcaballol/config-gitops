@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: reconcile-3scale-apps
+  namespace: tu-namespace
+spec:
+  template:
+    spec:
+      containers:
+        - name: reconcile
+          image: tu-imagen:latest  # Reemplázalo por tu imagen
+          command: ["python", "/app/reconcile_apps.py"]
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config
+              readOnly: true
+            - name: apps-volume
+              mountPath: /apps
+              readOnly: true
+      restartPolicy: Never
+      volumes:
+        - name: config-volume
+          configMap:
+            name: reconcile-config
+        - name: apps-volume
+          secret:
+            secretName: reconcile-apps
+  backoffLimit: 1
