@@ -34,10 +34,25 @@ def load_applications():
     return applications
 
 def get_accounts():
-    url = f"{ADMIN_URL}/admin/api/accounts.json"
-    response = requests.get(url, headers=HEADERS, verify=False)
+    url = f"{ADMIN_URL}/admin/api/accounts.json?access_token={ACCESS_TOKEN}&page=1&per_page=500"
+    headers = {
+        "accept": "*/*"
+    }
+
+    response = requests.get(url, headers=headers, verify=False)
     response.raise_for_status()
-    return response.json()
+
+    accounts = []
+    data = response.json()
+
+    for item in data.get("accounts", []):
+        account = item["account"]
+        accounts.append({
+            "id": account["id"],
+            "org_name": account["org_name"]
+        })
+
+    return accounts
 
 def application_exists(app_user_key):
     url = f"{ADMIN_URL}/admin/api/applications/find.xml?user_key={app_user_key}"
