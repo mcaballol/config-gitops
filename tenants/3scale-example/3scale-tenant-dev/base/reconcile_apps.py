@@ -60,7 +60,7 @@ def application_exists(app_user_key):
     return response.status_code == 200
 
 def create_application(app, accounts):
-    account_id = next((a['account']['id'] for a in accounts if a['account']['org_name'] == app['account']), None)
+    account_id = next((a['id'] for a in accounts if a['org_name'] == app['account']), None)
     if not account_id:
         print(f"No se encontró cuenta para la app {app['app_name']}")
         return
