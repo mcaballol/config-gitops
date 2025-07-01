@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: reconcile-apps
+  namespace: tu-namespace
+type: Opaque
+stringData:
+  app1.yaml: |
+    app_name: "planview"
+    account: "testorg"
+    service_system_name: "api_openid_product"
+    application_plan_name: "Basic"
+    application_id: "app-001"
+    application_key: "user-key-001"
+  app2.yaml: |
+    app_name: "mobile"
+    account: "testorg"
+    service_system_name: "api_openid_product"
+    application_plan_name: "Basic"
+    application_id: "app-002"
+    application_key: "user-key-002"
