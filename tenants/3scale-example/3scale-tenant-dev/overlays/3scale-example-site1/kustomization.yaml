@@ -25,5 +25,3 @@ resources:
 commonAnnotations:
     argocd.argoproj.io/sync-wave: "2"
 
-patchesStrategicMerge:
-  - patch-tenant-url-check-hook.yaml
