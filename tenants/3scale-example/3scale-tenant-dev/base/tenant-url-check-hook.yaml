@@ -9,7 +9,7 @@ spec:
   template:
     spec:
       restartPolicy: Never
-      serviceAccountName: hook-sa  # Asegúrate que tenga permisos para leer Secrets
+      serviceAccountName: hook-sa
       containers:
         - name: tenant-url-checker
           image: registry.redhat.io/openshift4/ose-cli:latest  # Imagen con `oc` preinstalado
