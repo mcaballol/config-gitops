@@ -22,8 +22,6 @@ resources:
   - applications/reconcile_job.yaml
   - applications/reconcile-apps.yaml
 
-  # hook
-  - tenant-url-check-hook.yaml
 commonAnnotations:
     argocd.argoproj.io/sync-wave: "2"
 
