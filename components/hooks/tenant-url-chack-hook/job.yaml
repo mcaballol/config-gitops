@@ -2,14 +2,12 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: tenant-url-check-hook
-  annotations:
-    argocd.argoproj.io/hook: PreSync
 spec:
   backoffLimit: 0
   template:
     spec:
       restartPolicy: Never
-      serviceAccountName: hook-sa
+      serviceAccountName: tenant-url-check-hook-sa
       containers:
         - name: tenant-url-checker
           image: registry.redhat.io/openshift4/ose-cli:latest  # Imagen con `oc` preinstalado

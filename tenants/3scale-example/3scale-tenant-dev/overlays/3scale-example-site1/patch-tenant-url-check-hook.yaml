@@ -8,7 +8,6 @@ spec:
     spec:
       containers:
         - name: tenant-url-checker
-          image: registry.redhat.io/openshift4/ose-cli:latest  # Imagen con `oc` preinstalado
           env:
             - name: SECRET_NAME
               value: "dev-tenant-secret"  # Puedes sobreescribir esto al aplicar

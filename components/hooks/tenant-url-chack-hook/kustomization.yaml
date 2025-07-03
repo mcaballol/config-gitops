@@ -1,9 +1,10 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - application_service-account.yaml
-  - application_role.yaml
-  - application_role-binding.yaml
+  - service-account.yaml
+  - role.yaml
+  - role-binding.yaml
+  - job.yaml
 
 commonAnnotations:
     argocd.argoproj.io/sync-wave: "1"
