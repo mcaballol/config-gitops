@@ -11,3 +11,6 @@ configMapGenerator:
 
 generatorOptions:
   disableNameSuffixHash: true
+
+patchesStrategicMerge:
+  - patch-tenant-url-check-hook.yaml
