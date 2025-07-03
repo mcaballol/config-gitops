@@ -1,0 +1,33 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: master-url-check-hook
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+spec:
+  backoffLimit: 0
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: url-checker
+          image: curlimages/curl:8.6.0
+          env:
+            - name: TARGET_URL
+              value: "https://example.com"  # ✅ puedes sobrescribir esto al aplicar el Job
+          command:
+            - sh
+            - -c
+            - |
+              echo "Iniciando verificación de URL: $TARGET_URL"
+              for i in $(seq 1 60); do
+                STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$TARGET_URL") || STATUS="000"
+                echo "Intento $i: Código HTTP $STATUS"
+                if [ "$STATUS" = "200" ] || [ "$STATUS" = "301" ] || [ "$STATUS" = "302" ]; then
+                  echo "URL válida detectada. Finalizando job."
+                  exit 0
+                fi
+                sleep 20
+              done
+              echo "Tiempo agotado. No se detectó URL válida."
+              exit 1
