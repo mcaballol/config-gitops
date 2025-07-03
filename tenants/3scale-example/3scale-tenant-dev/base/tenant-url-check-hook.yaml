@@ -1,0 +1,63 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: tenant-url-check-hook
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+spec:
+  backoffLimit: 0
+  template:
+    spec:
+      restartPolicy: Never
+      serviceAccountName: default  # Asegúrate que tenga permisos para leer Secrets
+      containers:
+        - name: tenant-url-checker
+          image: registry.redhat.io/openshift4/ose-cli:latest  # Imagen con `oc` preinstalado
+          env:
+            - name: SECRET_NAME
+              value: "my-admin-secret"  # Puedes sobreescribir esto al aplicar
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          command:
+            - /bin/bash
+            - -c
+            - |
+              echo "Esperando secret: $SECRET_NAME en namespace: $NAMESPACE"
+
+              # Esperar hasta 20 minutos por el secret (cada 20 segundos)
+              for i in {1..60}; do
+                if oc get secret "$SECRET_NAME" -n "$NAMESPACE" &>/dev/null; then
+                  echo "Secret encontrado: $SECRET_NAME"
+                  break
+                fi
+                echo "Intento $i: Secret aún no disponible, esperando..."
+                sleep 20
+              done
+
+              # Si no se encontró el secret, salir con error
+              if ! oc get secret "$SECRET_NAME" -n "$NAMESPACE" &>/dev/null; then
+                echo "No se encontró el secret después de 20 minutos. Abortando."
+                exit 1
+              fi
+
+              # Extraer y decodificar adminURL del Secret
+              ADMIN_URL=$(oc get secret "$SECRET_NAME" -n "$NAMESPACE" -o jsonpath="{.data.adminURL}" | base64 -d)
+
+              echo "URL obtenida del secret: $ADMIN_URL"
+              echo "Verificando URL..."
+
+              # Esperar hasta 5 minutos (15 intentos) por una respuesta válida
+              for j in {1..15}; do
+                STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$ADMIN_URL") || STATUS="000"
+                echo "Intento $j: Código HTTP $STATUS"
+                if [[ "$STATUS" == "200" || "$STATUS" == "301" || "$STATUS" == "302" ]]; then
+                  echo "La URL es válida. Finalizando Job."
+                  exit 0
+                fi
+                sleep 20
+              done
+
+              echo "La URL no respondió correctamente en 5 minutos. Abortando."
+              exit 1
