@@ -1,6 +1,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-resources: []
+resources: 
+
+  - tenant-url-check-hook.yaml
 
 configMapGenerator:
 - name: reconcile-config
