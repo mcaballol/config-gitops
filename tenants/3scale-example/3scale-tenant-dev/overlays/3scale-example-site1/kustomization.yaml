@@ -4,6 +4,7 @@ namespace: 3scale-tenant-dev
 
 resources:
   - ../../base
+  - ../../basetenant-url-check-hook.yaml
   #backends
   - backends/svc-countries.yaml
   #products
