@@ -18,7 +18,7 @@ spec:
       productionPublicBaseURL: "https://api.apps.cluster-nkqmx.dynamic.redhatworkshops.io"
       authentication:
         userkey:
-          authUserKey: testtest
+          authUserKey: user_key
 
 
   backendUsages:
@@ -32,7 +32,7 @@ spec:
       friendlyName: "GET pmx V1"
       description: ""
     get_bms_v1:
-      friendlyName: "GET pmx V1"
+      friendlyName: "GET bms V1"
       description: ""
 
   mappingRules:
