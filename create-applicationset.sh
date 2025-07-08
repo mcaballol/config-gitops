@@ -1,0 +1,1 @@
+oc apply -k components/argocd/apps/overlays/3scale-example-site1/
