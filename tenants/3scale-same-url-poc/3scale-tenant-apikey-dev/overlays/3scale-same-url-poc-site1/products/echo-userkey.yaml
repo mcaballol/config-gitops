@@ -40,12 +40,12 @@ spec:
     pattern: "/dev/pmx/v1"
     metricMethodRef: get_pmx_v1
     increment: 1
-    last: true
+    #last: true
   - httpMethod: GET
     pattern: "/dev/bms/v1"
     metricMethodRef: get_bms_v1
     increment: 1
-    last: true
+    #last: true
 
   applicationPlans:
     basic:
