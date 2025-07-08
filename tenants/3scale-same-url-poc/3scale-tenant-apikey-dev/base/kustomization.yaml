@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources: 
+  - ../../../../components/hooks/tenant-url-chack-hook
+
+configMapGenerator:
+- name: reconcile-config
+  files:
+  - reconcile_apps.py
+
+generatorOptions:
+  disableNameSuffixHash: true

@@ -1,0 +1,1 @@
+oc apply -k components/argocd/apps/overlays/3scale-same-url-poc-site1/

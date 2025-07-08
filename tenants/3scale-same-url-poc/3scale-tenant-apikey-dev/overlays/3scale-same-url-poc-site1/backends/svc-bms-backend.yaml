@@ -1,0 +1,28 @@
+apiVersion: capabilities.3scale.net/v1beta1
+kind: Backend
+metadata:
+  name: svc-bms-backend
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    argocd.argoproj.io/sync-wave: "2"
+
+spec:
+  name: "svc bms v1"
+  systemName: svc_bms_backend
+  description: "Backend del servicio svc_bms_backend"
+  privateBaseURL: "https://echo-api.3scale.net:443/dev/bms/v1"
+  providerAccountRef:
+    name: dev-tenant-secret
+
+  # methods:
+  #   get_bms_v1:
+  #     friendlyName: "GET countries V1"
+  #     description: ""
+ 
+
+  # mappingRules:
+  #   - httpMethod: GET
+  #     pattern: "/dev/bms/v1"
+  #     metricMethodRef: get_bms_v1
+  #     increment: 1
+  #     last: true

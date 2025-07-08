@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: reconcile-apps-testak
+  namespace: tu-namespace
+type: Opaque
+stringData:
+  app1.yaml: |
+    app_name: "plan-testak"
+    account: "testak"
+    service_system_name: "api_openid_product"
+    application_plan_name: "Basic"
+    application_id: "app-001"
+    application_key: "user-key-001"
