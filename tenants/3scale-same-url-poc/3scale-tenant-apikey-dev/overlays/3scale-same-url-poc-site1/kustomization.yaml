@@ -24,6 +24,10 @@ resources:
   #- applications/reconcile_job.yaml
   #- applications/reconcile-apps.yaml
 
+  #routes
+  - routes/echo-userkey.yaml
+  - routes/echo-userkey-staging.yaml
+
 commonAnnotations:
     argocd.argoproj.io/sync-wave: "2"
 
