@@ -23,6 +23,10 @@ resources:
   # - applications/secret.yaml
   #- applications/reconcile_job.yaml
   #- applications/reconcile-apps.yaml
+  - applications/application.yaml
+  - applications/applicationauth.yaml
+  - applications/applicationauthsecret.yaml
+
 
   #routes
   - routes/echo-userkey.yaml

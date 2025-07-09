@@ -1,0 +1,15 @@
+apiVersion: capabilities.3scale.net/v1beta1
+kind: Application
+metadata:
+  name: application-echo-userkey
+  namespace: 3scale
+spec:
+  accountCR:
+    name: developeraccount-testak
+  productCR:
+    name: echo-userkey
+  applicationPlanName: Basic
+  description: 'testing application '
+  name: testBasicApp
+  suspend: false
+status: {}
