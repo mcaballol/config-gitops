@@ -1,0 +1,14 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: echo-userkey-staging
+  namespace: 3scale-tenant-qa
+spec:
+  path: /qa
+  to:
+    name: apicast-staging
+    weight: 100
+    kind: Service
+  host: api-staging.apps.cluster-nkqmx.dynamic.redhatworkshops.io
+  tls: {}
+

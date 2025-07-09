@@ -1,0 +1,33 @@
+apiVersion: capabilities.3scale.net/v1beta1
+kind: DeveloperAccount
+metadata:
+  name: developeraccount-testak
+spec:
+  orgName: testak
+  providerAccountRef:
+    name: qa-tenant-secret
+---
+kind: DeveloperUser
+apiVersion: capabilities.3scale.net/v1beta1
+metadata:
+  name: developeruser-testak
+spec:
+  username: testak-user
+  passwordCredentialsRef:
+    name: secret-developeruser-testak
+  email: testak@redhat.com
+  role: admin
+  developerAccountRef:
+    name: developeraccount-testak
+  providerAccountRef:
+    name: qa-tenant-secret
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-developeruser-testak
+  # annotations:
+  #   argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+  #   argocd.argoproj.io/sync-wave: "1"
+stringData:
+  password: "redhat"

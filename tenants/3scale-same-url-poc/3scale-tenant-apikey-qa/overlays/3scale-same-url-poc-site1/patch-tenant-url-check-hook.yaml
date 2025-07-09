@@ -1,0 +1,13 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: tenant-url-check-hook
+spec:
+  backoffLimit: 1
+  template:
+    spec:
+      containers:
+        - name: tenant-url-checker
+          env:
+            - name: SECRET_NAME
+              value: "dev-tenant-secret"  # Puedes sobreescribir esto al aplicar

@@ -1,0 +1,29 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: 3scale-tenant-qa
+
+resources:
+  - ../../base
+  #backends
+  - backends/svc-bms-backend.yaml
+  - backends/svc-pmx-backend.yaml
+
+  #products
+  #- products/countries-openid-secret.yaml
+  - products/echo-userkey.yaml
+  #accounts
+  - accounts/developeraccount-testak.yaml
+
+  #applications
+  - applications/reconcile-apps.yaml
+  - ../../../../../components/hooks/reconcile-application-hook
+  #routes
+  - routes/echo-userkey.yaml
+  - routes/echo-userkey-staging.yaml
+
+# commonAnnotations:
+#     argocd.argoproj.io/sync-wave: "2"
+
+patchesStrategicMerge:
+  - patch-tenant-url-check-hook.yaml
+  - applications/reconcile-apps.yaml

@@ -1,0 +1,57 @@
+kind: Product
+apiVersion: capabilities.3scale.net/v1beta1
+metadata:
+  name: echo-userkey
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+spec:
+  name: "echo userkey"
+  systemName: echo_userkey
+  description: "product demo"
+  providerAccountRef:
+    name: qa-tenant-secret
+
+  deployment:
+    apicastSelfManaged:
+      stagingPublicBaseURL: "https://api-staging.apps.cluster-nkqmx.dynamic.redhatworkshops.io"
+      productionPublicBaseURL: "https://api.apps.cluster-nkqmx.dynamic.redhatworkshops.io"
+      authentication:
+        userkey:
+          authUserKey: user_key
+
+
+  backendUsages:
+    svc_pmx_backend:
+      path: "/qa/pmx/v1"
+    svc_bms_backend:
+      path: "/qa/bms/v1"
+
+  methods:
+    get_pmx_v1:
+      friendlyName: "GET pmx V1"
+      description: ""
+    get_bms_v1:
+      friendlyName: "GET bms V1"
+      description: ""
+
+  mappingRules:
+  - httpMethod: GET
+    pattern: "/qa/pmx/v1"
+    metricMethodRef: get_pmx_v1
+    increment: 1
+    #last: true
+  - httpMethod: GET
+    pattern: "/qa/bms/v1"
+    metricMethodRef: get_bms_v1
+    increment: 1
+    #last: true
+
+  applicationPlans:
+    basic:
+      name: Basic
+      appsRequireApproval: false
+      trialPeriod: 0
+      setupFee: "0.00"
+      costMonth: "0.00"
+      #custom: false
+      published: true

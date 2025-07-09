@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: reconcile-apps
+type: Opaque
+stringData:
+  app1.yaml: |
+    app_name: "echoapp"
+    account: "testak"
+    service_system_name: "echo_userkey"
+    application_plan_name: "Basic"
+    application_id: "app-001"
+    application_key: "user-key-001"
+    user_key: "user-key-001"
+  # app2.yaml: |
+  #   app_name: "mobile"
+  #   account: "testorg"
+  #   service_system_name: "api_openid_product"
+  #   application_plan_name: "Basic"
+  #   application_id: "app-002"
+  #   application_key: "user-key-002"
