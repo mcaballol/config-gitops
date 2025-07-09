@@ -4,7 +4,6 @@ metadata:
   name: svc-pmx-backend
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-    argocd.argoproj.io/sync-wave: "2"
 
 spec:
   name: "svc pmx v1"

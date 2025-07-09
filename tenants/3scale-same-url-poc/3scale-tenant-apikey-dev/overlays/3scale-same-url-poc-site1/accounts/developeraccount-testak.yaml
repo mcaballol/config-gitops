@@ -2,9 +2,6 @@ apiVersion: capabilities.3scale.net/v1beta1
 kind: DeveloperAccount
 metadata:
   name: developeraccount-testak
-  # annotations:
-  #   argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-  #   argocd.argoproj.io/sync-wave: "2"
 spec:
   orgName: testak
   providerAccountRef:
@@ -14,9 +11,6 @@ kind: DeveloperUser
 apiVersion: capabilities.3scale.net/v1beta1
 metadata:
   name: developeruser-testak
-  # annotations:
-  #   argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-  #   argocd.argoproj.io/sync-wave: "3"
 spec:
   username: testak-user
   passwordCredentialsRef:

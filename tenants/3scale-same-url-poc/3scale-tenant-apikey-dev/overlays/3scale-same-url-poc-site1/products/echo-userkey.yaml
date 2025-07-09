@@ -4,7 +4,6 @@ metadata:
   name: echo-userkey
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-    argocd.argoproj.io/sync-wave: "2"
 spec:
   name: "echo userkey"
   systemName: echo_userkey
