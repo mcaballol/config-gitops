@@ -26,4 +26,4 @@ resources:
 
 patchesStrategicMerge:
   - patch-tenant-url-check-hook.yaml
-  - applications/reconcile-apps.yaml
+  - applications/reconcile-job.yaml
