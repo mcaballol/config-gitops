@@ -11,7 +11,7 @@ spec:
   description: "Backend del servicio svc_bms_backend"
   privateBaseURL: "https://echo-api.3scale.net:443/dev/pmx/v1"
   providerAccountRef:
-    name: dev-tenant-secret
+    name: qa-tenant-secret
 
   # methods:
   #   get_bms_v1:
