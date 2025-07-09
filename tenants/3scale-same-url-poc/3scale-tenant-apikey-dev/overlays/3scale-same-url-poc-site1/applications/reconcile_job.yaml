@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: reconcile-3scale-apps
+spec:
+  template:
+    spec:
+      containers:
+        - name: reconcile
+          envFrom:
+            - secretRef:
+                name: dev-tenant-secret
+      restartPolicy: Never
+      volumes:
+        - name: apps-volume
+          secret:
+            secretName: reconcile-apps
+  backoffLimit: 2
