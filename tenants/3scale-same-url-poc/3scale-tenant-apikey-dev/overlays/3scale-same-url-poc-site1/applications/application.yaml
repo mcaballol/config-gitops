@@ -7,7 +7,7 @@ spec:
     name: developeraccount-testak
   productCR:
     name: echo-userkey
-  applicationPlanName: base
+  applicationPlanName: basic
   description: 'testing application '
   name: testBasicApp
   suspend: false
