@@ -16,14 +16,16 @@ resources:
   - accounts/developeruser-admin.yaml
   - accounts/developeruser-admin-secret.yaml
 
-  # - applications/application-sample-openid.yaml
-  # - applications/applicationauth.yaml
-  # - applications/secret.yaml
-  - applications/reconcile_job.yaml
+  # - applications
   - applications/reconcile-apps.yaml
+
+  # hook 3scale applications
+  - ../../../../../components/hooks/reconcile-application-hook
+
 
 commonAnnotations:
     argocd.argoproj.io/sync-wave: "2"
 
 patchesStrategicMerge:
   - patch-tenant-url-check-hook.yaml
+  - patch-reconcile-job.yaml
