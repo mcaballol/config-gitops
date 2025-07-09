@@ -19,9 +19,6 @@ resources:
   - ../../../../../components/hooks/reconcile-application-hook
 
 
-commonAnnotations:
-    argocd.argoproj.io/sync-wave: "2"
-
 patchesStrategicMerge:
   - patch-tenant-url-check-hook.yaml
   - patch-reconcile-job.yaml

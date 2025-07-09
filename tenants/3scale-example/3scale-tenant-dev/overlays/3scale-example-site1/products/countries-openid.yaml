@@ -2,9 +2,6 @@ kind: Product
 apiVersion: capabilities.3scale.net/v1beta1
 metadata:
   name: countries-openid
-  annotations:
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-    argocd.argoproj.io/sync-wave: "2"
 spec:
   name: "OpenID api"
   systemName: api_openid_product
