@@ -15,7 +15,7 @@ resources:
   - accounts/developeraccount-testak.yaml
 
   #account-users
-  - accounts/developeruser-testak.yaml
+  # - accounts/developeruser-testak.yaml
   - accounts/secret-developeruser-testak.yaml
 
   # - applications/application-sample-openid.yaml
