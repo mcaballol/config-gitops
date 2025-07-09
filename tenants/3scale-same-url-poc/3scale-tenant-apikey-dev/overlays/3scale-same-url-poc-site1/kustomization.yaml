@@ -12,10 +12,10 @@ resources:
   #- products/countries-openid-secret.yaml
   - products/echo-userkey.yaml
   #accounts
-  #- accounts/developeraccount-testak.yaml
+  - accounts/developeraccount-testak.yaml
 
   #account-users
-  #- accounts/developeruser-testak.yaml
+  - accounts/developeruser-testak.yaml
   - accounts/secret-developeruser-testak.yaml
 
   # - applications/application-sample-openid.yaml
