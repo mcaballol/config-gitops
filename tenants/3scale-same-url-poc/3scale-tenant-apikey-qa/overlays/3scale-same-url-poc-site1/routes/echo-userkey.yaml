@@ -9,6 +9,6 @@ spec:
     name: apicast-production
     weight: 100
     kind: Service
-  host: api.apps.cluster-nkqmx.dynamic.redhatworkshops.io
+  host: api-qa.apps.cluster-nkqmx.dynamic.redhatworkshops.io
   tls: {}
 
