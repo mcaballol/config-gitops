@@ -10,4 +10,4 @@ spec:
         - name: tenant-url-checker
           env:
             - name: SECRET_NAME
-              value: "dev-tenant-secret"  # Puedes sobreescribir esto al aplicar
+              value: "qa-tenant-secret"  # Puedes sobreescribir esto al aplicar
