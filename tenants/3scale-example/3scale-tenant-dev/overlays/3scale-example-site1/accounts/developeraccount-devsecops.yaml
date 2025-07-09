@@ -9,3 +9,31 @@ spec:
   orgName: testorg
   providerAccountRef:
     name: dev-tenant-secret
+---
+kind: DeveloperUser
+apiVersion: capabilities.3scale.net/v1beta1
+metadata:
+  name: developeruser-admin-dev
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  username: admin-dev
+  passwordCredentialsRef:
+    name: developeruser-admin-dev-secret
+  email: admin-dev@redhat.com
+  role: admin
+  developerAccountRef:
+    name: developeraccount-devsecops-dev
+  providerAccountRef:
+    name: dev-tenant-secret
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: developeruser-admin-dev-secret
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    argocd.argoproj.io/sync-wave: "1"
+stringData:
+  password: "redhat"

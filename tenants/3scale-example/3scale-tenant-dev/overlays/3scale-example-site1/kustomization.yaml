@@ -12,10 +12,6 @@ resources:
   #accounts
   - accounts/developeraccount-devsecops.yaml
 
-  #account-users
-  - accounts/developeruser-admin.yaml
-  - accounts/developeruser-admin-secret.yaml
-
   # - applications
   - applications/reconcile-apps.yaml
 
