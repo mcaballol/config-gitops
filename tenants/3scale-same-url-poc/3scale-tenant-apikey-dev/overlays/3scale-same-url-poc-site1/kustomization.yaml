@@ -23,17 +23,14 @@ resources:
   # - applications/secret.yaml
   #- applications/reconcile_job.yaml
   #- applications/reconcile-apps.yaml
-  - applications/application.yaml
-  - applications/applicationauth.yaml
-  - applications/applicationauthsecret.yaml
-
+  - applications/reconcile-apps.yaml
 
   #routes
   - routes/echo-userkey.yaml
   - routes/echo-userkey-staging.yaml
 
-commonAnnotations:
-    argocd.argoproj.io/sync-wave: "2"
+# commonAnnotations:
+#     argocd.argoproj.io/sync-wave: "2"
 
 patchesStrategicMerge:
   - patch-tenant-url-check-hook.yaml

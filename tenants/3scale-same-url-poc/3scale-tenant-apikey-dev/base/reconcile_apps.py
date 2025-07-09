@@ -55,8 +55,8 @@ def get_accounts():
 
     return accounts
 
-def application_exists(app_user_key):
-    url = f"{ADMIN_URL}/admin/api/applications/find.xml?user_key={app_user_key}"
+def application_exists(user_key):
+    url = f"{ADMIN_URL}/admin/api/applications/find.xml?user_key={user_key}"
     response = requests.get(url, auth=(ACCESS_TOKEN, ''), verify=False)
     return response.status_code == 200
 
@@ -95,15 +95,15 @@ def create_application(app, accounts):
     else:
         plan_id = app["plan_id"]
 
-    user_key = app.get("app_user_key", app["application_id"])
+    user_key = app.get("user_key", app["application_key"])
 
     payload = {
         "name": app["app_name"],
         "description": app.get("description", ""),
         "plan_id": plan_id,
-        "application_id": app["application_id"],
+        "application_id": app.get("application_id", ""),
         "user_key": user_key,
-        "application_key": app["application_key"],
+        "application_key": app.get("application_key", ""),
         "redirect_url": app.get("redirect_url", ""),
         "access_token": ACCESS_TOKEN,
         "first_traffic_at": "",
