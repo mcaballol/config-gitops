@@ -27,3 +27,13 @@ spec:
     name: developeraccount-testak
   providerAccountRef:
     name: dev-tenant-secret
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-developeruser-testak
+  # annotations:
+  #   argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+  #   argocd.argoproj.io/sync-wave: "1"
+stringData:
+  password: "redhat"
