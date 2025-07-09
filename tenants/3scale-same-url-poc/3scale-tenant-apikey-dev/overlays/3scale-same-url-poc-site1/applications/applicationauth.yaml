@@ -2,7 +2,6 @@ kind: ApplicationAuth
 apiVersion: capabilities.3scale.net/v1beta1
 metadata:
   name: applicationauth-echo-userkey
-  namespace: 3scale
 spec:
   applicationCRName: application-echo-userkey
   authSecretRef:
