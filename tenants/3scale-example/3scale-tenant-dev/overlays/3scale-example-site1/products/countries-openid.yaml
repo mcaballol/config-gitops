@@ -11,8 +11,8 @@ spec:
 
   deployment:
     apicastSelfManaged:
-      stagingPublicBaseURL: "https://api-dev-staging.apps.cluster-nkqmx.dynamic.redhatworkshops.io"
-      productionPublicBaseURL: "https://api-dev.apps.cluster-nkqmx.dynamic.redhatworkshops.io"
+      stagingPublicBaseURL: "https://api-dev-staging.apps.cluster-25gxt.dynamic.redhatworkshops.io"
+      productionPublicBaseURL: "https://api-dev.apps.cluster-25gxt.dynamic.redhatworkshops.io"
       authentication:
         oidc:
           authenticationFlow:

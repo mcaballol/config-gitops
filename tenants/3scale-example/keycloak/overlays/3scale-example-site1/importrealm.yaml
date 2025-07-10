@@ -13,7 +13,7 @@ spec:
         secret: my-3scale-secret
         publicClient: false
         redirectUris:
-          - "https://*.apps.cluster-nkqmx.dynamic.redhatworkshops.io/auth/3scale/callback"
+          - "https://*.apps.cluster-25gxt.dynamic.redhatworkshops.io/auth/3scale/callback"
         standardFlowEnabled: true
         directAccessGrantsEnabled: true
         serviceAccountsEnabled: true

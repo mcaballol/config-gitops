@@ -9,6 +9,6 @@ spec:
     name: apicast-staging
     weight: 100
     kind: Service
-  host: api-staging.apps.cluster-nkqmx.dynamic.redhatworkshops.io
+  host: api-staging.apps.cluster-25gxt.dynamic.redhatworkshops.io
   tls: {}
 
